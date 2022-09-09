@@ -1,7 +1,7 @@
 class Gaze {
     constructor(x, y, r, dir) {
         this.radius = r;
-        this.width = 30;
+        this.width = 1;
         this.pos = createVector(x, y);
         this.dir = dir;
     }
@@ -9,10 +9,10 @@ class Gaze {
 
     show() {
         let left = this.dir;
-        left.rotate(this.width*PI);
+        left.rotate(PI/4);
         left.setMag(this.radius);
         let right = this.dir;
-        right.rotate(-this.width*PI);
+        right.rotate(PI/4);
         right.setMag(this.radius);
         stroke(255);
         line(this.pos.x, this.pos.y, this.pos.x + left.x, this.pos.y + left.y);

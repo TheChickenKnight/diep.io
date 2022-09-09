@@ -1,4 +1,4 @@
-const FPS = 1000000000000000000000000000;
+const FPS = 1;
 const tringles = [];
 let target;
 

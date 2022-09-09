@@ -27,9 +27,9 @@ class Tringle {
             this.curVel.setMag(MAX_SPEED);
         if (Math.sqrt(Math.pow(target.pos.x - this.pos.x, 2) + Math.pow(target.pos.y - this.pos.y, 2)) < 10)
             this.curVel.setMag(this.curVel.mag()/1.5);
-        /*if (Math.random() < RANDTWEAK)
-            this.curVel.rotate(random(PI/8));*/
-        this.dir = p5.Vector.normalize(this.curVel);
+        if (Math.random() < RANDTWEAK)
+            this.curVel.rotate(random(PI/8));
+        this.dir = p5.Vector.normalize(this.accel);
     }
 
     show() {

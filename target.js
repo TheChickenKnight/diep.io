@@ -6,12 +6,16 @@ class Target {
     constructor(x, y) {
         this.pos = createVector(x, y);
         this.vel = createVector(0, SPEED).rotate(random(2 * PI));
+        targets.push(this);
     }
 
     isContact() {
-        for (let tri of tringles)
-            if (Math.sqrt(Math.pow(tri.pos.x - this.pos.x, 2) + Math.pow(tri.pos.y - this.pos.y, 2)) < RANGE)
+        for (let tri of tringles) {
+            if (Math.sqrt(Math.pow(tri.pos.x - this.pos.x, 2) + Math.pow(tri.pos.y - this.pos.y, 2)) < RANGE) {
+                tringles.indexOf(tri).brain.score++;
                 return true;
+            }
+        }
         return false;
     }
 

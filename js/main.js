@@ -9,13 +9,14 @@ var FOOD_AMOUNT      = Math.round(WIDTH * HEIGHT * 4e-4);
 
 // GA settings
 var PLAYER_AMOUNT     = 100;
-var ITERATIONS        = 100;
+var ITERATIONS        = 200;
 var START_HIDDEN_SIZE = 1;
 var MUTATION_RATE     = 1000000;
 var ELITISM_PERCENT   = 0.1;
 
 function initNeat() {
-    neat = new Neat(
+  Config.warnings = false;
+  neat = new Neat(
         11,
         8,
         null,
@@ -53,20 +54,21 @@ function startEval() {
     genome = neat.population[genome];
     new Tringle(genome);
   }
-  tringles[0].graph(1000, 1000);
 }
 
 function endEval() {
+  let avg = 0;
+  neat.population.forEach(genome => avg+=genome.score);
+  avg /= neat.population.length;
+  console.log("Gen " + neat.generation + " Average: " + avg);
     neat.sort();
     let newPopulation = [];
   
-    for(let i = 0; i < neat.elitism; i++){
+    for(let i = 0; i < neat.elitism; i++)
       newPopulation.push(neat.population[i]);
-    }
   
-    for(let i = 0; i < neat.popsize - neat.elitism; i++){
+    for(let i = 0; i < neat.popsize - neat.elitism; i++)
       newPopulation.push(neat.getOffspring());
-    }
   
     neat.population = newPopulation;
     neat.mutate();

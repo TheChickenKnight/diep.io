@@ -12,8 +12,7 @@ class Target {
     isContact() {
         for (let tri of tringles) {
             if (Math.sqrt(Math.pow(tri.pos.x - this.pos.x, 2) + Math.pow(tri.pos.y - this.pos.y, 2)) < RANGE) {
-                let main = tringles[tringles.indexOf(tri)];
-                main.brain.score++;
+                tringles[tringles.indexOf(tri)].brain.score++;
                 return true;
             }
         }

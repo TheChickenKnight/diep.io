@@ -25,6 +25,6 @@ class Gaze {
         this.right.setMag(this.radius);
         stroke(100);
         fill(100);
-        //arc(this.pos.x, this.pos.y, this.radius*2, this.radius*2, this.right.heading(), this.left.heading(), )
+        arc(this.pos.x, this.pos.y, this.radius*2, this.radius*2, this.right.heading(), this.left.heading(), )
     }
 }

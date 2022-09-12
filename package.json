@@ -1,6 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "neataptic": "^1.4.7"
-  }
-}

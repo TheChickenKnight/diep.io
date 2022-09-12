@@ -1,17 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <link rel="stylesheet" type="text/css" href="./style.css">
-    <meta charset="utf-8" />
+    <title>Diep.io</title>
+
+    <script src="https://cdn.rawgit.com/wagenaartje/neataptic/a7610e38/dist/neataptic.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://ialab.it.monash.edu/webcola/cola.min.js"></script>
+    <script src="https://rawgit.com/wagenaartje/neataptic/master/graph/graph.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://rawgit.com/wagenaartje/neataptic/master/graph/graph.css">
 
   </head>
   <body>
-    <script type="module" src="./p5/p5.min.js"></script>
-    <script type="module" src="./sketch.js"></script>
-    <script type="module" src="./tringle.js"></script>
-    <script type="module" src="./target.js"></script>
-    <script type="module" src="./gaze.js"></script>
-    <script type="module" src="./main.js"></script>
-    <!-- <script type="module" src="https://wagenaartje.github.io/neataptic/cdn/1.4.7/neataptic.js"></script> -->
+    <div class="container">
+      <div class="row">
+        <svg class="draw" width="1000px" height="1000px"/>
+      </div>
+    </div>
+    <div id="field" width="100%">
+    </div>
+    <script src="libs/p5.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/tringle.js"></script>
+    <script src="js/target.js"></script>
+    <script src="js/field.js"></script>
+    <script src="js/gaze.js"></script>
   </body>
 </html>

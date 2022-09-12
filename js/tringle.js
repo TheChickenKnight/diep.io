@@ -11,6 +11,7 @@ class Tringle {
         this.handling = 1;
         this.gaze = new Gaze(this.pos.x, this.pos.y, 100, this.dir);
         this.brain = genome;
+        this.brain.score = 0;
         this.oscillate = 0;
         this.chronometer = 0;
         this.seenTarget;
@@ -79,7 +80,7 @@ class Tringle {
             this.seenTarget ? createVector(this.pos.x - this.seenTarget.pos.x, this.pos.y - this.seenTarget.pos.y).heading() : 0,
             this.seenTwingle ? Math.sqrt(Math.pow(this.seenTwingle.pos.x - this.pos.x, 2) + Math.pow(this.seenTwingle.pos.y - this.pos.y, 2)) : 0,
             this.seenTwingle ? createVector(this.pos.x - this.seenTwingle.pos.x, this.pos.y - this.seenTwingle.pos.y).heading() : 0,
-            this.oscillate,
+            Math.sin(iteration),
             this.chronometer
         ]
     }
@@ -113,7 +114,7 @@ class Tringle {
         point(this.pos.x - this.dir.x - this.perp.x, this.pos.y - this.dir.y - this.perp.y)
         stroke(0);
         point(this.pos.x, this.pos.y);
-        this.gaze.show()
+        //this.gaze.show()
       }
 
       graph(x, y) {

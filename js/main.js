@@ -1,3 +1,5 @@
+import { fs } from "fs"
+
 var Neat = neataptic.Neat;
 var Methods = neataptic.Methods;
 var Config  = neataptic.Config;
@@ -9,10 +11,13 @@ var FOOD_AMOUNT      = Math.round(WIDTH * HEIGHT * 4e-4);
 
 // GA settings
 var PLAYER_AMOUNT     = 100;
-var ITERATIONS        = 100;
+var ITERATIONS        = 300;
 var START_HIDDEN_SIZE = 1;
 var MUTATION_RATE     = 1000000;
 var ELITISM_PERCENT   = 0.1;
+
+Config.warnings = false;
+
 
 function initNeat() {
     neat = new Neat(
@@ -48,15 +53,21 @@ function initNeat() {
 }
 
 function startEval() {
+
   tringles = [];
   for (var genome in neat.population) {
     genome = neat.population[genome];
     new Tringle(genome);
   }
-  tringles[0].graph(1000, 1000);
+  //tringles[0].graph(1000, 1000);
 }
 
 function endEval() {
+    let avg = 0;
+    for (let brain of neat.population)
+      avg += brain.score;
+    avg /= neat.population.length;
+    console.log("Gen " + neat.generation +  " Average: " + avg)
     neat.sort();
     let newPopulation = [];
   

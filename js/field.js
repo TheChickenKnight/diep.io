@@ -1,4 +1,4 @@
-const FPS = 10;
+const FPS = Number.MAX_SAFE_INTEGER;
 let tringles = [];
 let highestScore = 0;
 let targets = [];
@@ -11,7 +11,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     frameRate(FPS);
     initNeat();
-    for (let i = 0; i < 50; i++)
+    for (let i = 0; i < 100; i++)
         new Target(random(width), random(height));
     startEval();
 }

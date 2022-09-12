@@ -80,7 +80,7 @@ class Tringle {
             this.seenTarget ? createVector(this.pos.x - this.seenTarget.pos.x, this.pos.y - this.seenTarget.pos.y).heading() : 0,
             this.seenTwingle ? Math.sqrt(Math.pow(this.seenTwingle.pos.x - this.pos.x, 2) + Math.pow(this.seenTwingle.pos.y - this.pos.y, 2)) : 0,
             this.seenTwingle ? createVector(this.pos.x - this.seenTwingle.pos.x, this.pos.y - this.seenTwingle.pos.y).heading() : 0,
-            this.oscillate,
+            Math.sin(iteration),
             this.chronometer
         ]
     }

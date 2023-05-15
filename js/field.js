@@ -11,7 +11,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     frameRate(FPS);
     initNeat();
-    for (let i = 0; i < 100; i++)
+    for (let i = 0; i < 200; i++)
         new Target(random(width), random(height));
     startEval();
 }

@@ -8,7 +8,7 @@ class Tringle {
         this.dir = this.curVel;
         this.accel = createVector(0, 1).rotate(random(2 * PI));
         this.perp = createVector(this.curVel.y, -this.curVel.x);
-        this.handling = 0.1;
+        this.handling = 0.075;
         this.maxAccel = 2;
         this.gaze = new Gaze(this.pos.x, this.pos.y, 100, this.dir);
         this.brain = genome;
@@ -88,8 +88,19 @@ class Tringle {
     velTune() {
         let angle = p5.Vector.angleBetween(this.curVel, this.accel);
         let magDiff = this.curVel.mag() - this.accel.mag();
-        this.curVel.rotate(angle > 1 ? -1 : (angle < -1 ? 1 : 0) * this.handling);
-        this.curVel.setMag(magDiff > 0 ? 1 : (magDiff < 0 ? -1 : 0) * this.maxAccel);
+        if (angle > this.handling)
+            this.curVel.rotate(-this.handling);
+        else if (angle < -this.handling)
+            this.curVel.rotate(this.handling);
+        else
+            this.curVel = this.accel.copy();
+        let mag = this.curVel.mag();
+        if (magDiff > this.maxAccel) 
+            this.curVel.setMag(mag - this.maxAccel);
+        else if (magDiff < -this.maxAccel)
+            this.curVel.setMag(mag + this.maxAccel);
+        else 
+            this.curVel.setMag(this.accel.mag());
         if (this.curVel.mag() > MAX_SPEED)
             this.curVel.setMag(MAX_SPEED);
         this.dir = this.accel.copy();
@@ -115,7 +126,7 @@ class Tringle {
         point(this.pos.x - this.dir.x - this.perp.x, this.pos.y - this.dir.y - this.perp.y)
         stroke(0);
         point(this.pos.x, this.pos.y);
-        this.gaze.show()
+        //this.gaze.show()
       }
 
       graph(x, y) {

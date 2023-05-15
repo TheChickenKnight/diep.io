@@ -6,7 +6,7 @@ var Architect = neataptic.Architect;
 
 var WIDTH;
 var HEIGHT;
-var FOOD_AMOUNT      = Math.round(WIDTH * HEIGHT * 4e-4);
+var FOOD_AMOUNT      = Math.round(WIDTH * HEIGHT * 1e-3);
 
 // GA settings
 var PLAYER_AMOUNT     = 100;

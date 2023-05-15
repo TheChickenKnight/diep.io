@@ -1,5 +1,5 @@
 const RANGE = 5;
-const SPEED = 1;
+const SPEED = 0;
 const VELCHANGE = 0.1;
 
 class Target {

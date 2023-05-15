@@ -1,4 +1,3 @@
-import { fs } from "fs"
 
 var Neat = neataptic.Neat;
 var Methods = neataptic.Methods;

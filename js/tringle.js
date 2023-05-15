@@ -4,11 +4,12 @@ const RANDTWEAK = 0;
 class Tringle {
     constructor(genome) {
         this.pos = createVector(random(width), random(height));
-        this.curVel = createVector(0, 0);
+        this.curVel = createVector(1, 0);
         this.dir = this.curVel;
         this.accel = createVector(0, 1).rotate(random(2 * PI));
         this.perp = createVector(this.curVel.y, -this.curVel.x);
-        this.handling = 1;
+        this.handling = 0.1;
+        this.maxAccel = 2;
         this.gaze = new Gaze(this.pos.x, this.pos.y, 100, this.dir);
         this.brain = genome;
         this.brain.score = 0;
@@ -22,10 +23,9 @@ class Tringle {
     act() {
         let input = this.detect();
         let output = this.brain.activate(input);
-        this.accel.rotate((output[2] >= output[3] ? -1 : 1) * output[5]);
         this.velTune();
         if (output[7] < output[2] && output[7] < output[3]) 
-            this.accel.rotate((output[2] > output[3] ? 1 : -1) * Math.abs(output[5]));
+            this.accel.rotate((output[2] >= output[3] ? -1 : 1) * output[5]);
         if (output[6] < output[0] && output[6] < output[1]) {
             if (output[0] > output[1])
                 this.pos.add(this.curVel);
@@ -86,25 +86,26 @@ class Tringle {
     }
 
     velTune() {
-        this.curVel.add(this.accel);
+        let angle = p5.Vector.angleBetween(this.curVel, this.accel);
+        let magDiff = this.curVel.mag() - this.accel.mag();
+        this.curVel.rotate(angle > 1 ? -1 : (angle < -1 ? 1 : 0) * this.handling);
+        this.curVel.setMag(magDiff > 0 ? 1 : (magDiff < 0 ? -1 : 0) * this.maxAccel);
         if (this.curVel.mag() > MAX_SPEED)
             this.curVel.setMag(MAX_SPEED);
-        if (Math.random() < RANDTWEAK)
-            this.curVel.rotate(random(PI/8));
         this.dir = this.accel.copy();
         this.dir.normalize();
     }
 
-    show() {
+    show(s) {
         this.perp = createVector(this.dir.y, -this.dir.x);
         stroke(255);
         triangle(
-          this.pos.x + this.dir.x, 
-          this.pos.y + this.dir.y,
-          this.pos.x - this.dir.x + this.perp.x, 
-          this.pos.y - this.dir.y + this.perp.y, 
-          this.pos.x - this.dir.x - this.perp.x, 
-          this.pos.y - this.dir.y - this.perp.y
+          s * (this.pos.x + this.dir.x), 
+          s * (this.pos.y + this.dir.y),
+          s * (this.pos.x - this.dir.x + this.perp.x), 
+          s * (this.pos.y - this.dir.y + this.perp.y), 
+          s * (this.pos.x - this.dir.x - this.perp.x), 
+          s * (this.pos.y - this.dir.y - this.perp.y)
         );
         stroke(255, 0, 0);
         point(this.pos.x + this.dir.x, this.pos.y + this.dir.y)
@@ -114,7 +115,7 @@ class Tringle {
         point(this.pos.x - this.dir.x - this.perp.x, this.pos.y - this.dir.y - this.perp.y)
         stroke(0);
         point(this.pos.x, this.pos.y);
-        //this.gaze.show()
+        this.gaze.show()
       }
 
       graph(x, y) {

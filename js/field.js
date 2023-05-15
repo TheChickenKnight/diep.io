@@ -25,7 +25,7 @@ function draw() {
     }
     tringles.forEach(tri => {
       tri.act();
-      tri.show();
+      tri.show(1);
     });
     targets.forEach(target => {
       target.act();

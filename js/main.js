@@ -21,8 +21,8 @@ Config.warnings = false;
 function initNeat() {
   Config.warnings = false;
   neat = new Neat(
-        11,
-        8,
+        7,
+        2,
         null,
         {
             mutation: [
@@ -44,9 +44,9 @@ function initNeat() {
             mutationRate: MUTATION_RATE,
             elitism: Math.round(ELITISM_PERCENT * PLAYER_AMOUNT),
             network: new Architect.Random(
-              11,
+              7,
               START_HIDDEN_SIZE,
-              8
+              2
             )
           },
     );
@@ -64,9 +64,21 @@ function startEval() {
 
 function endEval() {
     let avg = 0;
-    for (let brain of neat.population)
+    let best = 0;
+    let worst = neat.population[0].score;
+    for (let brain of neat.population) {
       avg += brain.score;
+      if (brain.score > best)
+        best = brain.score;
+      else if (brain.score < worst)
+        worst = brain.score;
+    }
     avg /= neat.population.length;
+    chart.data.labels.push(neat.generation);
+    chart.data.datasets[0].data.push(avg);
+    chart.data.datasets[1].data.push(best);
+    chart.data.datasets[2].data.push(worst);
+    chart.update();
     console.log("Gen " + neat.generation +  " Average: " + avg)
     neat.sort();
     let newPopulation = [];

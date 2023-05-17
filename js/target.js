@@ -1,11 +1,12 @@
 const RANGE = 5;
-const SPEED = 0;
-const VELCHANGE = 0.1;
+const SPEED = 1;
+const VELCHANGE = 1;
 
 class Target {
     constructor(x, y) {
         this.pos = createVector(x, y);
         this.vel = createVector(0, SPEED).rotate(random(2 * PI));
+        this.accel = this.vel.copy().setMag(VELCHANGE);
         targets.push(this);
     }
 
@@ -22,7 +23,10 @@ class Target {
     act() {
         this.pos.add(this.vel);
         if (Math.random() < VELCHANGE)
-            this.vel.rotate(random(2 * PI));
+            this.accel.rotate(random(PI/8) - PI/16);
+        this.vel.add(this.accel);
+        if (this.vel.mag() > SPEED)
+            this.vel.setMag(SPEED);
         if (this.pos.x > WIDTH)
             this.pos.x = WIDTH
         else if (this.pos.x < 0)
@@ -35,7 +39,7 @@ class Target {
     }
 
     show() {
-        stroke(255);
+        stroke(255,0 ,0);
         ellipse(this.pos.x, this.pos.y, 5);
     }
 }
